@@ -51,7 +51,8 @@ class FinanceApp:
             ("Category Totals", self.show_category_totals),
             ("Monthly Report", self.show_monthly_totals),
             ("Save Data", self.save_data),
-            ("Load Data", self.load_data)
+            ("Load Data", self.load_data),
+            ("Delete Expenses", self.open_delete_window)
         ]
 
         for i, (text, command) in enumerate(buttons):
@@ -153,8 +154,73 @@ class FinanceApp:
         self.tracker.load_from_file()
         messagebox.showinfo("Loaded", "Data loaded from expenses.json")
 
+    def open_delete_window(self):
+        delete_win = tk.Toplevel(self.root)
+        delete_win.title("Delete Expenses")
+        delete_win.geometry("400x350")
+
+        ttk.Label(delete_win, text="Delete by:", font=("Helvetica", 14, "bold")).pack(pady=10)
+
+        ttk.Label(delete_win, text="Description:").pack()
+        descs = list({e.description for e in self.tracker.expenses})
+        self.desc_var = tk.StringVar()
+        desc_menu = ttk.Combobox(delete_win, textvariable=self.desc_var, values=descs, state="readonly")
+        desc_menu.pack(pady=5)
+        ttk.Button(delete_win, text="Delete by Description", command=lambda: self.delete_by_description(delete_win)).pack(pady=5)
+
+
+        ttk.Label(delete_win, text="Category:").pack()
+        cats = list({e.category for e in self.tracker.expenses})
+        self.cat_var = tk.StringVar()
+        cat_menu = ttk.Combobox(delete_win, textvariable=self.cat_var, values=cats, state="readonly")
+        cat_menu.pack(pady=5)
+        ttk.Button(delete_win, text="Delete by Category", command=lambda: self.delete_by_category(delete_win)).pack(pady=5)
+
+
+        ttk.Label(delete_win, text="Date:").pack()
+        dates = list({e.date.strftime("%Y-%m-%d") for e in self.tracker.expenses})
+        self.date_var = tk.StringVar()
+        date_menu = ttk.Combobox(delete_win, textvariable=self.date_var, values=dates, state="readonly")
+        date_menu.pack(pady=5)
+        ttk.Button(delete_win, text="Delete by Date", command=lambda: self.delete_by_date(delete_win)).pack(pady=5)
+
+        ttk.Button(delete_win, text="Delete All Expenses", command=lambda: self.delete_all_expenses(delete_win)).pack(pady=20)
+    def delete_by_description(self, delete_win):
+        desc = self.desc_var.get().strip()
+        if desc:
+            count = self.tracker.delete_expenses_by_description(desc)
+            self.tracker.save_to_file()
+            messagebox.showinfo("Deleted", f"{count} expenses deleted.")
+            delete_win.destroy()
+
+    def delete_by_category(self, delete_win):
+        cat = self.cat_var.get().strip()
+        if cat:
+            count = self.tracker.delete_expenses_by_category(cat)
+            self.tracker.save_to_file()
+            messagebox.showinfo("Deleted", f"{count} expenses deleted.")
+            delete_win.destroy()
+
+    def delete_by_date(self, delete_win):
+        date = self.date_var.get().strip()
+        if date:
+            count = self.tracker.delete_expenses_by_date(date)
+            if count >= 0:
+                self.tracker.save_to_file()
+                messagebox.showinfo("Deleted", f"{count} expenses deleted.")
+                delete_win.destroy()
+            else:
+                messagebox.showerror("Error", "Invalid date format.")
+
+    def delete_all_expenses(self, delete_win):
+        confirm = messagebox.askyesno("Confirm", "Are you sure you want to delete all expenses?")
+        if confirm:
+            count = self.tracker.delete_all_expenses()
+            self.tracker.save_to_file()
+            messagebox.showinfo("Deleted", f"{count} expenses deleted.")
+            delete_win.destroy()
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = FinanceApp(root)
     root.mainloop() 
-
