@@ -61,3 +61,27 @@ class FinanceTracker:
                 self.expenses = [Expense.from_dict(item) for item in data]
         except (FileNotFoundError, json.JSONDecodeError):
             self.expenses = []
+
+    def delete_expenses_by_description(self, desc):
+        original_count = len(self.expenses)
+        self.expenses = [e for e in self.expenses if e.description != desc]
+        return original_count - len(self.expenses)
+
+    def delete_expenses_by_category(self, category):
+        original_count = len(self.expenses)
+        self.expenses = [e for e in self.expenses if e.category != category]
+        return original_count - len(self.expenses)
+
+    def delete_expenses_by_date(self, date_str):
+        try:
+            target_date = datetime.strptime(date_str, "%Y-%m-%d")
+            original_count = len(self.expenses)
+            self.expenses = [e for e in self.expenses if e.date != target_date]
+            return original_count - len(self.expenses)
+        except ValueError:
+            return -1
+
+    def delete_all_expenses(self):
+        count = len(self.expenses)
+        self.expenses.clear()
+        return count
