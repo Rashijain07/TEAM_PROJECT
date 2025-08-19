@@ -28,7 +28,9 @@ Installation
 git clone <repo-url> cd finance-tracker python main.py
 
 Future Enhancements
-``` - Export to Excel/CSV - Login system for multiple users - Cloud sync or database integration (SQLite/PostgreSQL)
+- Export to Excel/CSV
+- Login system for multiple users
+- Cloud sync or database integration (SQLite/PostgreSQL)
 
 👥 Team Members
 Rashi Jain
