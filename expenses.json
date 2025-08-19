@@ -1,0 +1,68 @@
+[
+    {
+        "description": "Groceries at Big Bazaar",
+        "category": "Food",
+        "amount": 1200.5,
+        "date": "2025-07-03"
+    },
+    {
+        "description": "Uber to airport",
+        "category": "Travel",
+        "amount": 450.0,
+        "date": "2025-07-05"
+    },
+    {
+        "description": "Electricity bill",
+        "category": "Bills",
+        "amount": 1800.0,
+        "date": "2025-07-10"
+    },
+    {
+        "description": "Dinner at restaurant",
+        "category": "Food",
+        "amount": 850.75,
+        "date": "2025-07-15"
+    },
+    {
+        "description": "Train ticket to Jaipur",
+        "category": "Travel",
+        "amount": 620.0,
+        "date": "2025-08-01"
+    },
+    {
+        "description": "Mobile recharge",
+        "category": "Bills",
+        "amount": 299.0,
+        "date": "2025-08-03"
+    },
+    {
+        "description": "Lunch with friends",
+        "category": "Food",
+        "amount": 500.0,
+        "date": "2025-08-05"
+    },
+    {
+        "description": "Cab to office",
+        "category": "Travel",
+        "amount": 200.0,
+        "date": "2025-08-07"
+    },
+    {
+        "description": "Internet bill",
+        "category": "Bills",
+        "amount": 999.0,
+        "date": "2025-08-10"
+    },
+    {
+        "description": "Snacks",
+        "category": "Food",
+        "amount": 150.0,
+        "date": "2025-08-12"
+    },
+    {
+        "description": "psp purchase",
+        "category": "Shopping",
+        "amount": 6500.0,
+        "date": "2025-08-15"
+    }
+]
